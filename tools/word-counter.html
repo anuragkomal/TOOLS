@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter - Free Online Word Count Tool | MultiTools</title>
+    <meta name="description" content="Free online word counter tool. Count words, characters, sentences, and paragraphs instantly. Perfect for writers, students, and content creators.">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header will be loaded dynamically -->
+    <div id="header-placeholder"></div>
+
+    <main class="container py-4">
+        <!-- Tool Container -->
+        <div class="tool-container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1><i class="fas fa-calculator me-2"></i>Word Counter</h1>
+                    <p class="tool-description">
+                        Count words, characters, sentences, and paragraphs instantly. Perfect for essays, articles, and social media posts.
+                    </p>
+
+                    <!-- Text Input Area -->
+                    <div class="mb-4">
+                        <textarea id="textInput" class="form-control" rows="10" 
+                                placeholder="Type or paste your text here..."></textarea>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="row text-center mb-4">
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Words</h5>
+                                    <p id="wordCount" class="h3 mb-0">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Characters</h5>
+                                    <p id="charCount" class="h3 mb-0">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Sentences</h5>
+                                    <p id="sentenceCount" class="h3 mb-0">0</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Paragraphs</h5>
+                                    <p id="paragraphCount" class="h3 mb-0">0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex gap-2">
+                        <button id="clearBtn" class="btn btn-outline-danger">
+                            <i class="fas fa-trash-alt me-2"></i>Clear Text
+                        </button>
+                        <button id="copyBtn" class="btn btn-outline-primary">
+                            <i class="fas fa-copy me-2"></i>Copy Text
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-md-4">
+                    <!-- Ad Space -->
+                    <div class="ad-space mb-4">
+                        <small class="text-muted">Advertisement</small>
+                    </div>
+
+                    <!-- Additional Statistics -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Additional Statistics</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Characters (no spaces)</span>
+                                    <span id="charNoSpaces">0</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Reading Time</span>
+                                    <span id="readingTime">0 min</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Speaking Time</span>
+                                    <span id="speakingTime">0 min</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Related Tools -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Related Tools</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="character-counter.html" class="text-decoration-none">
+                                        <i class="fas fa-calculator me-2"></i>Character Counter
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="case-converter.html" class="text-decoration-none">
+                                        <i class="fas fa-font me-2"></i>Case Converter
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="text-to-speech.html" class="text-decoration-none">
+                                        <i class="fas fa-volume-up me-2"></i>Text to Speech
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer will be loaded dynamically -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="../assets/js/main.js"></script>
+    <!-- Tool Specific JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textInput = document.getElementById('textInput');
+            const clearBtn = document.getElementById('clearBtn');
+            const copyBtn = document.getElementById('copyBtn');
+
+            // Update counts on input
+            textInput.addEventListener('input', updateCounts);
+
+            // Clear text
+            clearBtn.addEventListener('click', () => {
+                textInput.value = '';
+                updateCounts();
+            });
+
+            // Copy text
+            copyBtn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(textInput.value);
+                    copyBtn.innerHTML = '<i class="fas fa-check me-2"></i>Copied!';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-copy me-2"></i>Copy Text';
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy text:', err);
+                }
+            });
+
+            function updateCounts() {
+                const text = textInput.value;
+                
+                // Update word count
+                document.getElementById('wordCount').textContent = 
+                    text.trim().split(/\s+/).filter(word => word.length > 0).length;
+
+                // Update character count
+                document.getElementById('charCount').textContent = text.length;
+                document.getElementById('charNoSpaces').textContent = 
+                    text.replace(/\s/g, '').length;
+
+                // Update sentence count
+                document.getElementById('sentenceCount').textContent =
+                    text.split(/[.!?]+/).filter(sentence => sentence.trim().length > 0).length;
+
+                // Update paragraph count
+                document.getElementById('paragraphCount').textContent =
+                    text.split(/\n\s*\n/).filter(para => para.trim().length > 0).length;
+
+                // Update reading time (assuming 200 words per minute)
+                const words = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+                const readingMinutes = Math.ceil(words / 200);
+                document.getElementById('readingTime').textContent = `${readingMinutes} min`;
+
+                // Update speaking time (assuming 130 words per minute)
+                const speakingMinutes = Math.ceil(words / 130);
+                document.getElementById('speakingTime').textContent = `${speakingMinutes} min`;
+            }
+        });
+    </script>
+</body>
+</html> 
